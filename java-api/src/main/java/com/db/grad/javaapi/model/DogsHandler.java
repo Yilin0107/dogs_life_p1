@@ -23,4 +23,14 @@ public class DogsHandler {
     public long getNoOfDogs() {
         return itsDog.count();
     }
+
+    public boolean removeDog(Dog theDog) {
+        try {
+            itsDog.delete(theDog);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
