@@ -28,10 +28,6 @@ public class DogsHandlerTest {
         assertEquals(expectedResult, actualResult);
     }
 
-//    boolean removeDog(long id){
-//
-//    }
-
     @Test
     public void testRemoveDog(){
         DogsHandler cut = new DogsHandler(itsDogRepo);
