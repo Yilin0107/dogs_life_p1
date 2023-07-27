@@ -1,6 +1,5 @@
 package com.db.grad.javaapi.model;
 
-import com.db.grad.javaapi.model.Dog;
 import com.db.grad.javaapi.repository.DogsRepository;
 import com.db.grad.javaapi.repository.DogsRepositoryStub;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,4 +27,21 @@ public class DogsHandlerTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    public void testRemoveDog(){
+        DogsHandler cut = new DogsHandler(itsDogRepo);
+        Dog theDog = new Dog();
+        theDog.setName("Bruno");
+        cut.addDog(theDog);
+
+        boolean actualResult = cut.removeDog(theDog);
+
+        boolean expectedResult = true;
+
+        assertEquals(actualResult,expectedResult);
+    }
+
+
+
 }
