@@ -4,6 +4,7 @@ import com.db.grad.javaapi.repository.DogsRepository;
 import com.db.grad.javaapi.repository.DogsRepositoryStub;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DogsHandler {
     private DogsRepository itsDog;
@@ -15,7 +16,7 @@ public class DogsHandler {
     public long addDog(Dog theDog) {
         try {
             itsDog.save(theDog);
-            return 1;
+            return theDog.getId();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -52,6 +53,25 @@ public class DogsHandler {
 
         return result;
 
+    }
+
+    public long updateDogDetails(Dog dog){
+        try{
+            Dog dogToUpdate = itsDog.findById(dog.getId());
+//            System.out.println(dog.getId());
+//            System.out.println(dog.getName());
+            if (dogToUpdate == null){
+                System.out.println("no such dog in the database");
+                return -1;
+            }
+            else {
+                dogToUpdate.setName(dog.getName());
+                return dogToUpdate.getId();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
 

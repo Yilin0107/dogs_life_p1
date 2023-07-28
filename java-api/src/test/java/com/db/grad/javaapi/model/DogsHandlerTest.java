@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DogsHandlerTest {
     private DogsRepository itsDogRepo = new DogsRepositoryStub();
+
     @BeforeEach
     public void makeSureRepoIsEmpty() {
         itsDogRepo.deleteAll();
@@ -31,23 +32,24 @@ public class DogsHandlerTest {
 
     @Test
     public void find_dog_by_valid_id_returns_null_dog() {
-    DogsHandler cut = new DogsHandler(itsDogRepo);
-    Dog theDog = new Dog();
-    theDog.setName("Bruno");
-    cut.addDog(theDog);
-    theDog = new Dog();
-    theDog.setName("Frank");
-    long uniqueId = cut.addDog( theDog);
-    Dog expectedDog = theDog;
-    theDog = new Dog();
-    theDog.setName("Penny");
-    cut.addDog(theDog);
+        DogsHandler cut = new DogsHandler(itsDogRepo);
+        Dog theDog = new Dog();
+        theDog.setName("Bruno");
+        cut.addDog(theDog);
+        theDog = new Dog();
+        theDog.setName("Frank");
+        long uniqueId = cut.addDog(theDog);
+        Dog expectedDog = theDog;
+        theDog = new Dog();
+        theDog.setName("Penny");
+        cut.addDog(theDog);
 
-    Dog actualResult = cut.getDogById(33);
+        Dog actualResult = cut.getDogById(33);
 
-    assertNull( actualResult );
+        assertNull(actualResult);
+    }
 
-    public void testRemoveDog(){
+    public void testRemoveDog() {
         DogsHandler cut = new DogsHandler(itsDogRepo);
         Dog theDog = new Dog();
         theDog.setName("Bruno");
@@ -57,11 +59,11 @@ public class DogsHandlerTest {
 
         boolean expectedResult = true;
 
-        assertEquals(actualResult,expectedResult);
+        assertEquals(actualResult, expectedResult);
     }
 
     @Test
-        public  void    find_dog_by_name_returns_one_dog() {
+    public void find_dog_by_name_returns_one_dog() {
 
         DogsHandler cut = new DogsHandler(itsDogRepo);
         Dog theDog = new Dog();
@@ -81,7 +83,8 @@ public class DogsHandlerTest {
         assertEquals(expectedDog.getName(), actualResult.getName());
     }
 
-    @Test    public  void    find_dog_by_name_returns_null_because_many_dogs_with_same_name() {
+    @Test
+    public void find_dog_by_name_returns_null_because_many_dogs_with_same_name() {
         DogsHandler cut = new DogsHandler(itsDogRepo);
         Dog theDog = new Dog();
         theDog.setName("Bruno");
@@ -100,5 +103,27 @@ public class DogsHandlerTest {
         assertNull(actualResult);
 
     }
-}
+
+    @Test
+    public void update_dog_that_exists_returns_dog_id() {
+        // arrange
+        DogsHandler cut = new DogsHandler(itsDogRepo);
+        Dog theDog = new Dog();
+        theDog.setName("Bruno");
+        cut.addDog(theDog);
+        theDog = new Dog();
+        theDog.setName("Frank");
+        long expectedResult = cut.addDog(theDog);
+        Dog dogToUpdate = theDog;
+        String dogToFind = "Frank";
+        theDog = new Dog();
+        theDog.setName("Penny");
+        cut.addDog(theDog);
+        // act
+        dogToUpdate.setName("Charlie");
+        long actualResult = cut.updateDogDetails(dogToUpdate);
+
+        // assert
+        assertEquals(expectedResult, actualResult);
+    }
 }
