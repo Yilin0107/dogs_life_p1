@@ -58,8 +58,6 @@ public class DogsHandler {
     public long updateDogDetails(Dog dog){
         try{
             Dog dogToUpdate = itsDog.findById(dog.getId());
-//            System.out.println(dog.getId());
-//            System.out.println(dog.getName());
             if (dogToUpdate == null){
                 System.out.println("no such dog in the database");
                 return -1;
