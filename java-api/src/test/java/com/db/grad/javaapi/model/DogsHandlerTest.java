@@ -1,6 +1,5 @@
 package com.db.grad.javaapi.model;
 
-import com.db.grad.javaapi.model.Dog;
 import com.db.grad.javaapi.repository.DogsRepository;
 import com.db.grad.javaapi.repository.DogsRepositoryStub;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,5 +46,59 @@ public class DogsHandlerTest {
     Dog actualResult = cut.getDogById(33);
 
     assertNull( actualResult );
+
+    public void testRemoveDog(){
+        DogsHandler cut = new DogsHandler(itsDogRepo);
+        Dog theDog = new Dog();
+        theDog.setName("Bruno");
+        cut.addDog(theDog);
+
+        boolean actualResult = cut.removeDog(theDog);
+
+        boolean expectedResult = true;
+
+        assertEquals(actualResult,expectedResult);
+    }
+
+    @Test
+        public  void    find_dog_by_name_returns_one_dog() {
+
+        DogsHandler cut = new DogsHandler(itsDogRepo);
+        Dog theDog = new Dog();
+        theDog.setName("Bruno");
+        cut.addDog(theDog);
+        theDog = new Dog();
+        theDog.setName("Frank");
+        cut.addDog(theDog);
+        Dog expectedDog = theDog;
+        String dogToFind = "Frank";
+        theDog = new Dog();
+        theDog.setName("Penny");
+        cut.addDog(theDog);
+
+        Dog actualResult = cut.getDogByName(dogToFind);
+
+        assertEquals(expectedDog.getName(), actualResult.getName());
+    }
+
+    @Test    public  void    find_dog_by_name_returns_null_because_many_dogs_with_same_name() {
+        DogsHandler cut = new DogsHandler(itsDogRepo);
+        Dog theDog = new Dog();
+        theDog.setName("Bruno");
+        cut.addDog(theDog);
+        theDog = new Dog();
+        theDog.setName("Bruno");
+        cut.addDog(theDog);
+        Dog expectedDog = theDog;
+        String dogToFind = "Bruno";
+        theDog = new Dog();
+        theDog.setName("Penny");
+        cut.addDog(theDog);
+
+        Dog actualResult = cut.getDogByName(dogToFind);
+
+        assertNull(actualResult);
+
+    }
 }
 }
