@@ -26,6 +26,11 @@ public class DogsHandler {
         return itsDog.count();
     }
 
+
+    public Dog getDogById(long uniqueId){
+        return itsDog.findById(uniqueId);
+    }
+
     public boolean removeDog(Dog theDog) {
         try {
             itsDog.delete(theDog);
@@ -49,3 +54,4 @@ public class DogsHandler {
 
     }
 }
+

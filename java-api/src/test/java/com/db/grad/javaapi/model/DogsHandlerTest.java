@@ -30,6 +30,23 @@ public class DogsHandlerTest {
     }
 
     @Test
+    public void find_dog_by_valid_id_returns_null_dog() {
+    DogsHandler cut = new DogsHandler(itsDogRepo);
+    Dog theDog = new Dog();
+    theDog.setName("Bruno");
+    cut.addDog(theDog);
+    theDog = new Dog();
+    theDog.setName("Frank");
+    long uniqueId = cut.addDog( theDog);
+    Dog expectedDog = theDog;
+    theDog = new Dog();
+    theDog.setName("Penny");
+    cut.addDog(theDog);
+
+    Dog actualResult = cut.getDogById(33);
+
+    assertNull( actualResult );
+
     public void testRemoveDog(){
         DogsHandler cut = new DogsHandler(itsDogRepo);
         Dog theDog = new Dog();
@@ -83,5 +100,5 @@ public class DogsHandlerTest {
         assertNull(actualResult);
 
     }
-
+}
 }
